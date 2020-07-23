@@ -11,51 +11,79 @@ NOTE: This module will eventually be published to the Powershell Gallery once si
 Windows
 
 Windows Powershell < 6.1
+
 You should install this module inthe User scope unless it is being installed on a shared system.
 
 User Scope Install
+
 Command Prompt
+
 >cd %USERPROFILE%\Documents\WindowsPowershell\Modules
+
 >git clone {path}
 
 Powershell
+
 >cd $env:USERPROFILE\Documents\WindowsPowerShell\Modules
+
 >git clone {path}
 
 System Scope Install
+
 Command Prompt
+
 Open a elevated command prompt
+
 >cd %ProgramFiles%\WindowsPowershell\Modules
+
 >git clone {path}
 
 Powershell
+
 Open an elevated Powershell session
+
 >cd $env:PROGRAMFILES\WindowsPowershell\Modules
+
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 Powershell Core / Powershell 7
+
 User Scope Install
+
 Command Prompt
+
 >cd %UserProfile%\Documents\PowerShell\Modules
+
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 Powershell
+
 >cd $env:USERPROFILE\Documents\PowerShell\Modules
+
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 System Scope Install
+
 Command Prompt
+
 Open an elevated command prompt
+
 >cd %PROGRAMFILES%\PowerShell\7\modules
+
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 Linux/Mac
+
 User Scope Install
+
 >cd ~/.local/share/powershell/Modules
+
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 System Scope Install
+
 >cd /usr/local/share/powershell/Modules
+
 >sudo git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 USAGE
