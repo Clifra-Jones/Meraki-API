@@ -5,6 +5,7 @@ NOTE: This is a work in progress. This module only exposes a very small subset o
 expect that there are bugs.
 
 INSTALLATION
+
 NOTE: This module will eventually be published to the Powershell Gallery once significant testing has been done.
 
 Windows
