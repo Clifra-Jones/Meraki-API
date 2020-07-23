@@ -106,3 +106,4 @@ You must configure your profile to user the API. T odo this use the Set-MerakiAP
 
 This will create the file .meraki/config.json in your user profile. 
 
+See Wiki for documentation.
