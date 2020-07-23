@@ -98,28 +98,32 @@ Open Powershell
 
 >Get-MerakiOrganizations -APIKey '{key string}'
 
-This will produce this:
-
-id     name                         url
---     ----                         ---
-XXXXXX {Company Name}               https://nxx.meraki.com/o/LY2ULd/manage/organization/overview
-
 Configure your user profile to use the API.
+
 You must configure your profile to user the API. T odo this use the Set-MerakiAPI function.
+
 >Set-MerakiAPI -APIKey '{key string}' -OrgID 'XXXXXX'
+
 This will create the file .meraki/config.json in your user profile. 
 
 Commands:
 
 Set-MerakiAPI
+
 Description: Save configuration information in the user profile.
+
 Paramters:
+  
   APIKey: Meraki API Key 
+
   OrgID: Organizational ID
 
 Get-MerakiOrganizations
+
 Description: Retrieve the Organization information the user has access to.
+
 Parameters:
+
   APIKey: Meraki API Key
   
 Get-MerakiNetworks
