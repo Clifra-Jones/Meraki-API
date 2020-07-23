@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-# RootModule = ''
+RootModule = 'Meraki-API.psm1'
 
 # Version number of this module.
 ModuleVersion = '0.0.1'
@@ -18,7 +18,7 @@ ModuleVersion = '0.0.1'
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = 'f7542927-df84-461e-80f2-436f1265b015'
+GUID = '500f35e2-184a-4b0a-a33e-1ad76ea13c92'
 
 # Author of this module
 Author = 'Cliff Williams'
@@ -33,7 +33,7 @@ Copyright = '(c) Cliff Williams. All rights reserved.'
 # Description = ''
 
 # Minimum version of the PowerShell engine required by this module
-#PowerShellVersion = '5.0'
+# PowerShellVersion = ''
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -69,16 +69,17 @@ Copyright = '(c) Cliff Williams. All rights reserved.'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
+#FunctionsToExport = "*"
 FunctionsToExport = @("Get-MerakiNetworks", "Get-MerakiNetworks", "Get-MerakiNetworkDevices", "Get-MerakiNetworkDevice", "Get-MerakiOrganizationDevices", "Get-MerakiNetworkVLAN", "Get-MerakiNetworkVLANS", "Get-MerakiDeviceSwitchSettings", "Get-MerakiDeviceSwitchPorts", "Get-MerakiOrganizations", "Get-MerakiNetworkContentFilteringRules", "Update-MerakiNetworkContentFiltering", "Set-MerakiAP", "Get-MerakiNetwork")
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = @()
+CmdletsToExport = '*'
 
 # Variables to export from this module
 VariablesToExport = 'CategoryListSize'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = @()
+AliasesToExport = '*'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
