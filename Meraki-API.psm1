@@ -272,6 +272,25 @@ function Get-MerakiDeviceSwitchPorts() {
     return $response
 }
 
+function Get-MerakiSSIDs() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    $Uri = "{0}/networks/{1}/ssids" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
 <#
 .Description
 Retrieve content filtering Rules for a network
