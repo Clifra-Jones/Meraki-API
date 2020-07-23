@@ -330,11 +330,11 @@ function Update-MerakiNetworkContentFiltering() {
     return $response
 }
 
-Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
+<# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
                                     Get-MerakiOrganizationDevices, Get-MerakiNetworkVLAN, Get-MerakiNetworkVLANS, `
                                     Get-MerakiDeviceSwitchSettings, Get-MerakiDeviceSwitchPorts, Get-MerakiOrganizations, `
                                     Get-MerakiNetworkContentFilteringRules, Update-MerakiNetworkContentFiltering, Set-MerakiAP, Get-MerakiNetwork `
-                        -Variable  CategoryListSize
+                        -Variable  CategoryListSize #>
                         
 
