@@ -95,9 +95,11 @@ Once you have your API key you need to obtain the Organization ID for the Organi
 
 Open Powershell
 >Import-Module Meraki-API
+
 >Get-MerakiOrganizations -APIKey '{key string}'
 
 This will produce this:
+
 id     name                         url
 --     ----                         ---
 XXXXXX {Company Name}               https://nxx.meraki.com/o/LY2ULd/manage/organization/overview
