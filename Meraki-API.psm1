@@ -119,7 +119,7 @@ function Get-MerakiNetworkDevices () {
             ValueFromPipelineByPropertyName = $True)]
         [string]$id
     )
-    $Uri = "{0}/networks{1}/devices" -f $BaseURI, $id
+    $Uri = "{0}/networks/{1}/devices" -f $BaseURI, $id
     $Headers = Get-Headers
 
     $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
@@ -143,6 +143,31 @@ function Get-MerakiNetworkDevice() {
     )
 
     $Uri = "{0}/networks/{1}/devices/{2}" -f $BaseURI, $NetworkID, $DeviceID
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
+function Get-MerakiNetworkDeviceUplink() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [String]$networkId,
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [String]$serial
+    )
+
+    $Uri = "{0}/networks/{1}/devices/{2}/uplink" -f $BaseURI, $networkId, $serial
     $Headers = Get-Headers
 
     $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
@@ -348,6 +373,147 @@ function Update-MerakiNetworkContentFiltering() {
 
     return $response
 }
+
+<#
+.Description
+Get Organization Admins
+#>
+function Get-MerakiOrganizationAdmins() {
+    Param(
+        [string]$OrgID
+    )
+
+    If (-not $orgID) {
+        $config = Read-Config
+        $OrgID = $config.OrgID
+    }
+
+    $Uri = "{0}/organizations/{1}/admins" -f $BaseURI, $OrgID
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $uri -Headers $Headers
+
+    return $response
+}
+
+function Get-MerakiOrganizationConfigurationChanges() {
+    [CmdletBinding(DefaultParameterSetName = 'TimeSpan')]
+    Param(                 
+        [string]$OrgID,
+        [Parameter(ParameterSetName = 'StartEnd')]
+        [ValidateScript({$_ -as [DateTime]})]
+        [datetime]$StartTime,
+        [Parameter(ParameterSetName = 'StartEnd')]
+        [ValidateScript({$_ -as [DateTime]})]
+        [DateTime]$EndTime,
+        [Parameter(ParameterSetName = 'TimeSpan')]
+        [ValidateScript({$_ -as [long]})]
+        [long]$TimeSpan,
+        [ValidateScript({$_ -as [int]})]
+        [int]$PerPage,
+        [string]$NetworkID,
+        [string]$AdminID
+    )
+    
+    If (-not $OrgID) {
+        $config = Read-Config
+        $OrgID = $config.OrgID
+    }
+
+    $Uri = "{0}/organizations/{1}/configurationChanges" -f $BaseURI, $OrgID
+    $Headers = Get-Headers
+
+    $psBody = @{}
+    if ($StartTime) {
+        $T0 = "{0:s}" -f $StartTime
+        $psBody.Add("t0", $T0)
+    }
+
+    if ($EndTime) {
+        $T1 = "{0:s}" -f $EndTime
+        $psBody.add("t1", $T1)
+    }
+
+    if ($TimeSpan) {
+        $seconds = [timespan]::FromDays($timespan).TotalSeconds
+        $psBody.Add("timespan", $seconds)
+    }
+
+    if ($PerPage) {
+        $psBody.Add("perPage", $PerPage)
+    }
+
+    if ($NetworkID) {
+        $psBody.Add("networkId", $NetworkID)
+    }
+
+    if ($AdminID) {
+        $psBody.Add("adminId", $AdminID)
+    }
+
+    $Body = $psBody | ConvertTo-Json
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -body $Body -Headers $Headers
+
+    return $response
+    
+}
+
+function Get-MerakiNetworkUplinkSettings() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+    $Uri = "{0}/networks/{1}/uplinkSettings" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method Get -Uri $Uri -Headers $headers
+
+    return $response
+}
+
+function Get-MerakiOrganizationConfigTemplates() {
+    Param(
+        [String]$OrgID
+    )
+
+    if (-not $OrgID) {
+        $config = Read-Config
+        $OrgID = $config.OrgID
+    }
+
+    $Uri = "{0}/organizations/{1}/configTemplates" -f $BaseURI, $OrgID
+    $headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $headers
+
+    return $response
+}
+
+function Get-MerakiNetworkSiteToSiteVPN() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    $Uri = "{0}/networks/{1}/siteToSiteVpn" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
 
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
