@@ -70,7 +70,11 @@ Copyright = '(c) Cliff Williams. All rights reserved.'
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 #FunctionsToExport = "*"
-FunctionsToExport = @("Get-MerakiNetworks", "Get-MerakiNetworks", "Get-MerakiNetworkDevices", "Get-MerakiNetworkDevice", "Get-MerakiOrganizationDevices", "Get-MerakiNetworkVLAN", "Get-MerakiNetworkVLANS", "Get-MerakiDeviceSwitchSettings", "Get-MerakiDeviceSwitchPorts", "Get-MerakiOrganizations", "Get-MerakiNetworkContentFilteringRules", "Update-MerakiNetworkContentFiltering", "Set-MerakiAP", "Get-MerakiNetwork","Get-MerakiSSIDs")
+FunctionsToExport = @("Get-MerakiNetworks", "Get-MerakiNetworks", "Get-MerakiNetworkDevices", "Get-MerakiNetworkDevice", "Get-MerakiOrganizationDevices", `
+                        "Get-MerakiNetworkVLAN", "Get-MerakiNetworkVLANS", "Get-MerakiDeviceSwitchSettings", "Get-MerakiDeviceSwitchPorts", "Get-MerakiOrganizations", `
+                        "Get-MerakiNetworkContentFilteringRules", "Update-MerakiNetworkContentFiltering","Set-MerakiAP", "Get-MerakiNetwork","Get-MerakiSSIDs", `
+                        "Get-MerakiOrganizationAdmins", "Get-MerakiOrganizationConfigurationChanges","Get-MerakiNetworkUplinkSettings", `
+                        "Get-MerakiOrganizationConfigTemplates","Get-MerakiNetworkSiteToSiteVPN","Get-MerakiNetworkDeviceUplink")
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'
