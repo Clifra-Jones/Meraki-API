@@ -88,7 +88,7 @@ System Scope Install
 
 ZIP FILE INSTALLATION
 
-Same as above, just make a directory called Meraki-API in one of the above folders and unzip the file into thagt directory.
+Same as above, just make a directory called Meraki-API in one of the above folders and unzip the file into that directory.
 
 USAGE
 
