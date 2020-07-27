@@ -14,8 +14,7 @@ enum productTypes{
     switch;
     systemManager;
     camera;
-    cellularGateway;
-    combined
+    cellularGateway
 }
 
 <#
@@ -596,7 +595,7 @@ function Get-MerakiNetworkEvents() {
         [string]$deviceName,
         [string]$clientName,
         [string]$clientIP,
-        [string]$ClientMac,
+        [string]$clientMac,
         [string]$smDeviceName,
         [string]$smDeviceMac,
         [int]$perPage
@@ -648,6 +647,27 @@ function Get-MerakiNetworkEvents() {
         return $response
     }
 }
+
+function Get-MerakiNetworkEventTypes() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    $Uri = "{0}/networks/{1}/events/eventTypes" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
+
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
                                     Get-MerakiOrganizationDevices, Get-MerakiNetworkVLAN, Get-MerakiNetworkVLANS, `
