@@ -86,6 +86,9 @@ System Scope Install
 
 >sudo git clone https://github.com/Clifra-Jones/Meraki-API.git
 
+ZIP FILE INSTALLATION
+Same as above, just make a directory called Meraki-API in one of the above folders and unzip the file into thagt directory.
+
 USAGE
 API Access must be anbledon your Meraki Dashboard.
 You will need to have a Meraki API key. You gan get your key by logging into your Meraki Dashboard, go to your profile and generate your API key.
