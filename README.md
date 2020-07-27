@@ -10,7 +10,7 @@ NOTE: This module will eventually be published to the Powershell Gallery once si
 
 Windows
 
-Windows Powershell < 6.1
+Windows Powershell <= 6.1
 
 You should install this module inthe User scope unless it is being installed on a shared system.
 
