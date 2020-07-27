@@ -87,6 +87,7 @@ System Scope Install
 >sudo git clone https://github.com/Clifra-Jones/Meraki-API.git
 
 ZIP FILE INSTALLATION
+
 Same as above, just make a directory called Meraki-API in one of the above folders and unzip the file into thagt directory.
 
 USAGE
