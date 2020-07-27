@@ -8,6 +8,16 @@ enum CategoryListSize {
     fullList
 }
 
+enum productTypes{
+    wireless;
+    appliance;
+    switch;
+    systemManager;
+    camera;
+    cellularGateway;
+    combined
+}
+
 <#
 .Description
 Creates a file in the user profile folder un the .meraki folder named config.json.
@@ -96,6 +106,9 @@ Retrieves a specific Network
 #>
 function Get-MerakiNetwork() {
     Param(
+        [Parameter(
+            Mandatory = $true
+        )]
         [String]$NetworkID
     )
     $Uri = "{0}/networks/{1}" -f $BaseURI, $NetworkID
@@ -119,12 +132,17 @@ function Get-MerakiNetworkDevices () {
             ValueFromPipelineByPropertyName = $True)]
         [string]$id
     )
-    $Uri = "{0}/networks/{1}/devices" -f $BaseURI, $id
-    $Headers = Get-Headers
 
-    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+    Begin {
+        $Headers = Get-Headers
+    }
 
-    return $response
+    Process {
+    
+        $Uri = "{0}/networks/{1}/devices" -f $BaseURI, $id
+        $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+        return $response
+    }
 }
 
 <#
@@ -180,7 +198,15 @@ function Get-MerakiNetworkDeviceUplink() {
 Retrieves all devices in an organization
 #>
 function Get-MerakiOrganizationDevices() {
-    $config = Read-Config
+    Param(
+        [string]$OrgID
+    )
+
+    If (-not $OrgID) {
+        $config = Read-Config
+        $OrgID = $config.OrgID
+    }
+
     $Uri = "{0}/organizations/{1}/devices" -f $BaseURI, $config.OrgID
     $Headers = Get-Headers
 
@@ -289,12 +315,47 @@ function Get-MerakiDeviceSwitchPorts() {
         [string]$serial
     )
 
-    $Uri = "{0}/devices/{1}/switchPorts" -f $BaseURI, $serial
     $Headers = Get-Headers
+    $responses = New-Object System.Collections.Generic.List[psobject]
+    if ($input.Length -eq 0) {
+        $Uri = "{0}/devices/{1}/switchPorts" -f $BaseURI, $serial
+        $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+        return $response
+    } 
+    $input | ForEach-Object {
+        if ($input.model -like "MS*") { 
+            $Uri = "{0}/devices/{1}/switchPorts" -f $BaseURI, $input.serial
+            $deviceName = $input.name
+            $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+            $response | ForEach-Object {
+            $_ | add-member  -MemberType NoteProperty -Name "Device" -Value $deviceName
+            }        
+            $responses.Add($response)        
+        }
+    }
+    return $responses.ToArray()
+}
 
-    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
-    
-    return $response
+function Get-MerakiApplianceVlanPorts() {
+    [cmdletbinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    Begin {
+        $Headers = Get-Headers
+    }
+
+    Process {
+        $Uri = "{0}/networks/{1}/appliancePorts" -f $BaseURI, $id
+        $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+        return $response
+    }
 }
 
 function Get-MerakiSSIDs() {
@@ -515,6 +576,78 @@ function Get-MerakiNetworkSiteToSiteVPN() {
 }
 
 
+
+function Get-MerakiNetworkEvents() {
+    [cmdletbinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]    
+        [string]$id,
+        [Parameter(
+            Mandatory = $true
+        )]
+        [productTypes]$ProductType,
+        [string[]]$IncludedEventTypes,
+        [string[]]$excludedEventTypes,
+        [string]$deviceMac,
+        [string]$deviceName,
+        [string]$clientName,
+        [string]$clientIP,
+        [string]$ClientMac,
+        [string]$smDeviceName,
+        [string]$smDeviceMac,
+        [int]$perPage
+    )
+
+    Begin {
+        $Headers = Get-Headers
+    }
+
+    Process {
+        $Uri = "{0}/networks/{1}/events" -f $BaseURI, $id
+
+        $oBody = @{}
+        If ($ProductType) {
+            $oBody.Add("productType", $ProductType.ToString())
+        }
+        if ($IncludedEventTypes) {
+            $oBody.Add("includedEventTypes", $IncludedEventTypes)
+        }
+        if ($excludedEventTypes) {
+            $oBody.Add("excludedEventTypes", $excludedEventTypes)
+        }
+        if ($deviceMac) {
+            $oBody.Add("deviceMac", $deviceMac)
+        }
+        if ($deviceName) {
+            $oBody.Add("deviceMac", $deviceMac)
+        }
+        if ($clientName) {
+            $oBody.Add("clientName", $clientName)
+        }
+        if ($clientIP) {
+            $obody.add("clientIP", $clientIP)
+        }
+        if ($ClientMac) {
+            $oBody.Add("clientMac", $ClientMac)
+        }
+        if ($smDeviceName) {
+            $oBody.Add("smDeviceName", $smDeviceName)
+        }
+        if ($smDeviceMac) {
+            $oBody.Add("smDeviceMac", $smDeviceMac)
+        }
+
+        $body = $oBody | ConvertTo-Json
+
+        $response = Invoke-RestMethod -Method GET -Uri $Uri -Body $body -Headers $Headers
+
+        return $response
+    }
+}
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
                                     Get-MerakiOrganizationDevices, Get-MerakiNetworkVLAN, Get-MerakiNetworkVLANS, `
