@@ -10,9 +10,10 @@ NOTE: This module will eventually be published to the Powershell Gallery once si
 
 Windows
 
-Windows Powershell <= 6.1
+Windows Powershell <= 5.1
+NOTE: Certain functions donot currently work with Powershell 5.1. I will research of I can fix that but at htos time if yu want full functionality you should run 6+.
 
-You should install this module inthe User scope unless it is being installed on a shared system.
+You should install this module in the User scope unless it is being installed on a shared system.
 
 User Scope Install
 
@@ -46,7 +47,7 @@ Open an elevated Powershell session
 
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-Powershell Core / Powershell 7
+Powershell Core 6 or 7
 
 User Scope Install
 
