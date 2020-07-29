@@ -216,7 +216,7 @@ function Get-MerakiOrganizationDevices() {
 
 <#
 .Description
-Retrieves all VLAN for a network
+Retrieves all VLAN for a network.
 #>
 function Get-MerakiNetworkVLANS() {
     [cmdletbinding()]

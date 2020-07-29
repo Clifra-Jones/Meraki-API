@@ -12,6 +12,8 @@ Corrected the name of function Set-MerakiAPI. Was Set-MerakiAP now Set-MerakiAPI
 
 Fixed an issue with Update-MerakiNetworkContentFiltering. Also added the functionality to accept the object returned from Get-MerakiNetworkContentFilteringRules as a single parameter.
 
+Corrected a problem with Get-MerakiNetworkVLans when passing pipeline input with networks without VLANs.
+
 Added the following functions:
 
 Get-MerakiOrganizationThirdPartyVPNPeers
