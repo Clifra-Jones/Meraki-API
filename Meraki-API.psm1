@@ -239,9 +239,11 @@ function Get-MerakiNetworkVLANS() {
             }
             try {
                 $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers 
-                $responses.add($response)
+                if ($response.id) {
+                    $responses.add($response)   
+                }
             } catch {
-                $_.Exception
+                #$_.Exception
             }
             $i += 1
         }
