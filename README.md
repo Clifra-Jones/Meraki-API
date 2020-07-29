@@ -4,6 +4,24 @@ PowerShell Module to work with the MerakiAPI.
 NOTE: This is a work in progress. This module only exposes a very small subset of the Meraki API REST functions. There may be bugs and you should
 expect that there are bugs.
 
+CHANGES
+
+7/29/2020
+
+Corrected the name of function Set-MerakiAPI. Was Set-MerakiAP now Set-MerakiAPI
+
+Fixed an issue with Update-MerakiNetworkContentFiltering. Also added the functionality to accept the object returned from Get-MerakiNetworkContentFilteringRules as a single parameter.
+
+Added the following functions:
+
+Get-MerakiOrganizationThirdPartyVPNPeers
+
+Get-MerakiOrganizationInventory
+
+Get-MerakiNetworkSecurityEvents
+
+Get-MerakiOrganizationSecurityEvents
+
 INSTALLATION
 
 NOTE: This module will eventually be published to the Powershell Gallery once significant testing has been done.

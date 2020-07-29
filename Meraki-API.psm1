@@ -501,6 +501,10 @@ function Get-MerakiOrganizationAdmins() {
     return $response
 }
 
+<#
+.Description
+Get Organization configuration Changes
+#>
 function Get-MerakiOrganizationConfigurationChanges() {
     [CmdletBinding(DefaultParameterSetName = 'TimeSpan')]
     Param(                 
@@ -564,6 +568,10 @@ function Get-MerakiOrganizationConfigurationChanges() {
     
 }
 
+<#
+.Description
+Get Network Uplink Setting
+#>
 function Get-MerakiNetworkUplinkSettings() {
     [CmdletBinding()]
     Param(
@@ -582,6 +590,10 @@ function Get-MerakiNetworkUplinkSettings() {
     return $response
 }
 
+<#
+.Description
+Get Organization Configuration Templates
+#>
 function Get-MerakiOrganizationConfigTemplates() {
     Param(
         [String]$OrgID
@@ -600,6 +612,10 @@ function Get-MerakiOrganizationConfigTemplates() {
     return $response
 }
 
+<#
+.Description
+Get Network Site-to-Site VPN Settings
+#>
 function Get-MerakiNetworkSiteToSiteVPN() {
     [CmdletBinding()]
     Param(
@@ -619,8 +635,10 @@ function Get-MerakiNetworkSiteToSiteVPN() {
     return $response
 }
 
-
-
+<#
+.Description
+Get network events
+#>
 function Get-MerakiNetworkEvents() {
     [cmdletbinding()]
     Param(
@@ -704,6 +722,10 @@ function Get-MerakiNetworkEvents() {
     }
 }
 
+<#
+.Description
+Get network event types
+#>
 function Get-MerakiNetworkEventTypes() {
     [CmdletBinding()]
     Param(
@@ -723,6 +745,139 @@ function Get-MerakiNetworkEventTypes() {
     return $response
 }
 
+<#
+.Description
+Blink Network Device LEDs
+#>
+function Start-MerakiNetworkDeviceBlink() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$networkId,
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$serial,
+        [int]$Duration,
+        [int]$Duty,
+        [int]$Period
+    )
+
+    $Uri = "{0}/networks/{1}/devices/{2}/blinkLeds" -f $BaseURI, $networkId, $serial
+    $Headers = Get-Headers
+
+    $psBody = @{}
+    if ($Duration) {
+        $psBody.Add("duration", $Duration)
+    }
+    if ($Duty) {
+        $psBody.Add("duty", $Duty)
+    }
+    if ($Period) {
+        $psBody.aDD("period", $Period)
+    }
+    $body = $psBody | ConvertTo-Json
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Body $body -Headers $Headers
+
+    return $response
+}
+
+<#
+.Description
+Get organization thrid party VPN peers
+#>
+function Get-MerakiOrganizationThirdPartyVPNPeers() {
+    [CmdletBinding()]
+    Param(
+        [STRING]$OrgID
+    )
+
+    if (-not $OrgID) {
+        $config = Read-Config
+        $OrgId = $config.OrgID
+    }
+
+    $Uri = "{0}/organizations/{1}/thirdPartyVPNPeers" -f $BaseURI, $OrgID
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
+<#
+.Description
+Get organization inventory
+#>
+function Get-MerakiOrganizationInventory() {
+    Param(
+        [string]$OrgID
+    )
+
+    if (-not $OrgID) {
+        $config = Read-Config
+        $OrgID = $config.OrgID
+    }
+
+    $Uri = "{0}/organizations/{1}/inventory" -f $BaseURI, $OrgID
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
+<#
+.Description
+Get network security events
+#>
+function Get-MerakiNetworkSecurityEvents() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    $Uri = "{0}/networks/{1}/securityEvents" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $headers
+
+    return $response
+}
+
+<#
+.Description
+Get organization security events
+#>
+function Get-MerakiOrganizationSecurityEvents() {
+    Param(
+        [string]$OrgID
+    )
+
+    if (-not $OrgID) {
+        $config = Read-Config
+        $OrgID = $config.OrgID
+    }
+
+    $Uri = "{0}/organizations/{1}/securityEvents" -f $BaseURI, $OrgID
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
 
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
