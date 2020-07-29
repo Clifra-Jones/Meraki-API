@@ -22,7 +22,7 @@ enum productTypes{
 Creates a file in the user profile folder un the .meraki folder named config.json.
 This file contains the users Meraki API Key and the default Organization ID
 #>
-function Set-MerakiAP() {
+function Set-MerakiAPI() {
     Param(
         [string]$APIKey,
         [string]$OrgID
@@ -376,6 +376,25 @@ function Get-MerakiSSIDs() {
     return $response
 }
 
+function Get-MerakiNetworkContentFilteringCategories() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    $Uri = "{0}/networks/{1}/contentFiltering/categories" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
 <#
 .Description
 Retrieve content filtering Rules for a network
@@ -411,19 +430,45 @@ function Update-MerakiNetworkContentFiltering() {
             ValueFromPipelineByPropertyName = $true
         )]
         [string]$id,
+        [Parameter(
+            ParameterSetName = "values",
+            Mandatory = $true
+        )]
         [string[]]$allowedURLPatterns,
+        [Parameter(
+            Mandatory=$true,
+            ParameterSetName = "values"            
+        )]
         [string[]]$blockedURLPatterns,
-        [string[]]$blockedUrlCategories,
-        [ValidateSet("topSites","fullList")]
-        [CategoryListSize]$urlCategoryListSize
+        [Parameter(
+            ParameterSetName = "values",
+            Mandatory = $true
+        )]
+        [psObject]$blockedUrlCategories,
+        [Parameter(
+            Mandatory = $true, ParameterSetName = 'values'
+        )]
+        [string]$urlCategoryListSize,
+        [Parameter(
+            Mandatory = $true, ParameterSetName = "object"
+        )]
+        [psObject]$ContentFilteringRules
     )
     $Uri = "{0}/networks/{1}/contentFiltering" -f $BaseURI, $id
     $Headers = Get-Headers
 
+    if ($ContentFilteringRules) {
+        $allowedURLPatterns = $ContentFilteringRules.allowedUrlPatterns
+        $blockedURLPatterns = $ContentFilteringRules.blockedUrlPatterns
+        $blockedUrlCategories = $ContentFilteringRules.blockedUrlCategories
+        $urlCategoryListSize = $ContentFilteringRules.urlCategoryListSize
+    }
+
+
     $psBody = [PSCustomObject]@{
         allowedUrlPatterns = $allowedURLPatterns
         blockedUrlPatterns = $blockedURLPatterns
-        blockedUrlCategories = $blockedUrlCategories
+        blockedUrlCategories = $blockedUrlCategories | ForEach-Object {$_.id}
         urlCategoryListSize = $urlCategoryListSize
     }
     
@@ -598,7 +643,9 @@ function Get-MerakiNetworkEvents() {
         [string]$clientMac,
         [string]$smDeviceName,
         [string]$smDeviceMac,
-        [int]$perPage
+        [int]$perPage,
+        [datetime]$startingAfter,
+        [datetime]$endingAfter
     )
 
     Begin {
@@ -639,12 +686,21 @@ function Get-MerakiNetworkEvents() {
         if ($smDeviceMac) {
             $oBody.Add("smDeviceMac", $smDeviceMac)
         }
+        if ($perPage) {
+            $oBody.Add("perPage", $perPage)
+        }
+        if ($startingAfter) {
+            $oBody.add("startingAfter", "{0:s}" -f $startingAfter)
+        }
+        if ($endingAfter) {
+            $obody.add("endingAfter", "{0:s}" -f $endingAfter)
+        }
 
         $body = $oBody | ConvertTo-Json
 
         $response = Invoke-RestMethod -Method GET -Uri $Uri -Body $body -Headers $Headers
 
-        return $response
+        return $response.events
     }
 }
 
