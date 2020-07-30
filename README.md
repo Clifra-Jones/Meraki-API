@@ -7,7 +7,7 @@ expect that there are bugs.
 CHANGES
 7/30/2020
 
-Added paging to Get-MerakiNetworkEvents. You can not append -next, -prev, -first, and -last to subsequent calls with the same parameters.
+Added paging to Get-MerakiNetworkEvents. You can now append -next, -prev, -first, and -last to subsequent calls with the same parameters.
 
 7/29/2020
 
@@ -34,7 +34,7 @@ NOTE: This module will eventually be published to the Powershell Gallery once si
 Windows
 
 Windows Powershell <= 5.1
-NOTE: Certain functions donot currently work with Powershell 5.1. I will research of I can fix that but at htos time if yu want full functionality you should run 6+.
+NOTE: Certain functions do not currently work with Powershell 5.1. I will research of I can fix that but at htos time if yu want full functionality you should run 6+.
 
 You should install this module in the User scope unless it is being installed on a shared system.
 
