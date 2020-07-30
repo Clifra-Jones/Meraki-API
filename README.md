@@ -5,6 +5,8 @@ NOTE: This is a work in progress. This module only exposes a very small subset o
 expect that there are bugs.
 
 CHANGES
+7/30/2020
+Added paging to Get-MerakiNetworkEvents. You can not append -next, -prev, -first, and -last to subsequent calls with the same parameters.
 
 7/29/2020
 
