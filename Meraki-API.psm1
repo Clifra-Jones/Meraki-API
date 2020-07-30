@@ -637,6 +637,13 @@ function Get-MerakiNetworkSiteToSiteVPN() {
     return $response
 }
 
+$paging = @{
+    next = $null
+    prev = $null
+    first = $null
+    last = $null
+}
+
 <#
 .Description
 Get network events
@@ -664,8 +671,12 @@ function Get-MerakiNetworkEvents() {
         [string]$smDeviceName,
         [string]$smDeviceMac,
         [int]$perPage,
-        [datetime]$startingAfter,
-        [datetime]$endingAfter
+        [datetime]$startingAfter=0,
+        [datetime]$endingBefore=0,
+        [switch]$first,
+        [switch]$last,
+        [switch]$prev,
+        [switch]$next
     )
 
     Begin {
@@ -674,6 +685,31 @@ function Get-MerakiNetworkEvents() {
 
     Process {
         $Uri = "{0}/networks/{1}/events" -f $BaseURI, $id
+
+        if ($first -or $last -or $prev -or $next) {
+            if ($first) {
+                $startingAfter = $paging.first
+                $endingBefore = 0
+            } elseif ($last) {
+                $startingAfter = 0
+                $endingBefore = $paging.last
+            } elseif ($next) {
+                if ($paging.next -ne $paging.last) {
+                    $startingAfter = $paging.next
+                    $endingBefore = 0
+                }
+            } elseif ($prev) {
+                If ($paging.prev -ne $paging.first) {
+                    $endingbefore = $paging.prev
+                    $startingAfter = 0
+                }
+            }            
+        } else {
+            $paging.first = $null
+            $paging.last = $null
+            $paging.prev = $null
+            $paging.next = $null
+        }
 
         $oBody = @{}
         If ($ProductType) {
@@ -709,18 +745,29 @@ function Get-MerakiNetworkEvents() {
         if ($perPage) {
             $oBody.Add("perPage", $perPage)
         }
-        if ($startingAfter) {
+        if ($startingAfter.year -ne 1) {
             $oBody.add("startingAfter", "{0:s}" -f $startingAfter)
         }
-        if ($endingAfter) {
-            $obody.add("endingAfter", "{0:s}" -f $endingAfter)
+        if ($endingBefore.year -ne 1) {
+            $obody.add("endingAfter", "{0:s}" -f $endingBefore)
         }
 
         $body = $oBody | ConvertTo-Json
 
         $response = Invoke-RestMethod -Method GET -Uri $Uri -Body $body -Headers $Headers
+        if ($first -or $last -or $prev -or $next) {
+            $paging.prev = $response.pageStartAt
+            $paging.next = $response.pageEndAt
+        } else {
+            $paging.first = $startingAfter
+            if ($endingBefore) {
+                $paging.last = $endingBefore
+            }
+            $paging.next = $response.pageEndAt
+            $paging.prev = $response.pageStartAt
+        }
 
-        return $response.events
+        return $response.events | Sort-Object occurredAt
     }
 }
 
