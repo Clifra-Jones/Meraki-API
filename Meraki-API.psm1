@@ -235,7 +235,7 @@ function Get-MerakiNetworkVLANS() {
         $input | ForEach-Object {
             $Uri = "{0}/networks/{1}/vlans" -f $BaseURI, $_.id
             If (-not $NoProgress) {
-                Write-Progress -Activity "Getting Progress for: " -Status $_.Name -PercentComplete ($i/$count*100)
+                Write-Progress -Activity "Getting VLANS for: " -Status $_.Name -PercentComplete ($i/$count*100)
             }
             try {
                 $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers 
