@@ -247,7 +247,7 @@ function Get-MerakiNetworkVLANS() {
             }
             $i += 1
         }
-
+        Write-Progress -Completed
         return $responses.toArray()
     
 }
