@@ -5,7 +5,9 @@ NOTE: This is a work in progress. This module only exposes a very small subset o
 expect that there are bugs.
 
 CHANGES
+
 08/03/2020
+
 Added Aliases for functions
 
 Name            -> Definition
