@@ -8,61 +8,61 @@ CHANGES
 08/03/2020
 Added Aliases for functions
 
-Name            Definition
+Name            -> Definition
 
 ----            ----------
 
-GMAppVlanPorts  Get-MerakiApplianceVlanPorts
+GMAppVlanPorts  -> Get-MerakiApplianceVlanPorts
 
-GMDevSwPorts    Get-MerakiDeviceSwitchPorts
+GMDevSwPorts    -> Get-MerakiDeviceSwitchPorts
 
-GMDevSwSettings Get-MerakiDeviceSwitchSettings
+GMDevSwSettings -> Get-MerakiDeviceSwitchSettings
 
-GMNet           Get-MerakiNetwork
+GMNet           -> Get-MerakiNetwork
 
-GMNetCFCats     Get-MerakiNetworkContentFilteringCategories
+GMNetCFCats     -> Get-MerakiNetworkContentFilteringCategories
 
-GMNetCFRules    Get-MerakiNetworkContentFilteringRules
+GMNetCFRules    -> Get-MerakiNetworkContentFilteringRules
 
-GMNetDev        Get-MerakiNetworkDevice
+GMNetDev        -> Get-MerakiNetworkDevice
 
-GMNetDevs       Get-MerakiNetworkDevices
+GMNetDevs       -> Get-MerakiNetworkDevices
 
-GMNetDevUplink  Get-MerakiNetworkDeviceUplink
+GMNetDevUplink  -> Get-MerakiNetworkDeviceUplink
 
-GMNetET         Get-MerakiNetworkEventTypes
+GMNetET         -> Get-MerakiNetworkEventTypes
 
-GMNetEvents     Get-MerakiNetworkEvents
+GMNetEvents     -> Get-MerakiNetworkEvents
 
-GMNets          Get-MerakiNetworks
+GMNets          -> Get-MerakiNetworks
 
-GMNetSecEvents  Get-MerakiNetworkSecurityEvents
+GMNetSecEvents  -> Get-MerakiNetworkSecurityEvents
 
-GMNetSSVpn      Get-MerakiNetworkSiteToSiteVPN
+GMNetSSVpn      -> Get-MerakiNetworkSiteToSiteVPN
 
-GMNetULSettings Get-MerakiNetworkUplinkSettings
+GMNetULSettings -> Get-MerakiNetworkUplinkSettings
 
-GMNetVLAN       Get-MerakiNetworkVLAN
+GMNetVLAN       -> Get-MerakiNetworkVLAN
 
-GMNetVLANs      Get-MerakiNetworkVLANS
+GMNetVLANs      -> Get-MerakiNetworkVLANS
 
-GMOrg           Get-MerakiOrganizations
+GMOrg           -> Get-MerakiOrganizations
 
-GMOrg3pVP       Get-MerakiOrganizationThirdPartyVPNPeers
+GMOrg3pVP       -> Get-MerakiOrganizationThirdPartyVPNPeers
 
-GMOrgAdmins     Get-MerakiOrganizationAdmins
+GMOrgAdmins     -> Get-MerakiOrganizationAdmins
 
-GMOrgDevs       Get-MerakiOrganizationDevices
+GMOrgDevs       -> Get-MerakiOrganizationDevices
 
-GMOrgInv        Get-MerakiOrganizationInventory
+GMOrgInv        -> Get-MerakiOrganizationInventory
 
-GMOrgSecEvents  Get-MerakiOrganizationSecurityEvents
+GMOrgSecEvents  -> Get-MerakiOrganizationSecurityEvents
 
-GMOrgTemplates  Get-MerakiOrganizationConfigTemplates
+GMOrgTemplates  -> Get-MerakiOrganizationConfigTemplates
 
-GMSSIDs         Get-MerakiSSIDs
+GMSSIDs         -> Get-MerakiSSIDs
 
-UMNetCF         Update-MerakiNetworkContentFiltering
+UMNetCF         -> Update-MerakiNetworkContentFiltering
 
 7/30/2020
 
