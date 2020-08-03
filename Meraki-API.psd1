@@ -85,7 +85,10 @@ CmdletsToExport = '*'
 VariablesToExport = 'CategoryListSize'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = '*'
+AliasesToExport = @('GMOrg','GMNets','GMNet','GMNetDevs','GMNetDev','GMNetDevUplink','GMOrgDevs','GMNetVLANs', `
+                    'GMNetVLAN','GMDevSwSettings','GMDevSwPorts','GMAppVlanPorts','GMSSIDs','GMNetCFCats', `
+                    'GMNetCFRules','UMNetCF','GMOrgAdmins','GMNetULSettings','GMOrgTemplates','GMNetSSVpn', `
+                    'GMNetEvents','GMNetET','GMOrg3pVP','GMOrgInv','GMNetSecEvents','GMOrgSecEvents')
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

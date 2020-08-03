@@ -54,6 +54,26 @@ function Read-Config () {
     return $config
 }
 
+function ConvertTo-UTime () {
+    Param(
+        [datetime]$DateTime
+    )
+
+    $uTime = ([System.DateTimeOffset]$DateTime).ToUnixTimeMilliseconds() / 1000
+
+    return $Utime
+}
+
+function ConvertFrom-UTime() {
+    Param(
+        [decimal]$Utime
+    )
+
+    [DateTime]$DateTime = [System.DateTimeOffset]::FromUnixTimeMilliseconds(1000 * $Utime).LocalDateTime
+
+    return $DateTime
+}
+
 function Get-Headers() {
     $config = Read-Config
     $Headers = @{
@@ -85,6 +105,8 @@ function Get-MerakiOrganizations() {
 
 }
 
+Set-Alias -Name GMOrg -Value Get-MerakiOrganizations -Option ReadOnly
+
 <#
 .Description
 Retrieves all Networks for a Meraki Organization
@@ -98,6 +120,8 @@ function Get-MerakiNetworks() {
 
     return $response
 }
+
+Set-Alias -Name GMNets -Value Get-MerakiNetworks -Option ReadOnly
 
 <#
 .Description
@@ -117,6 +141,8 @@ function Get-MerakiNetwork() {
 
     return $Response
 }
+
+Set-Alias -Name GMNet -Value Get-MerakiNetwork -Option:ReadOnly
 
 <#
 .Description
@@ -144,6 +170,8 @@ function Get-MerakiNetworkDevices () {
     }
 }
 
+Set-Alias -Name GMNetDevs -Value Get-MerakiNetworkDevices -Option ReadOnly
+
 <#
 .Description
 Retrieves a specific Device
@@ -166,6 +194,8 @@ function Get-MerakiNetworkDevice() {
 
     return $response
 }
+
+Set-Alias -Name GMNetDev -Value Get-MerakiNetworkDevice -Option ReadOnly
 
 function Get-MerakiNetworkDeviceUplink() {
     [CmdletBinding()]
@@ -192,6 +222,8 @@ function Get-MerakiNetworkDeviceUplink() {
     return $response
 }
 
+Set-Alias -Name GMNetDevUplink -Value Get-MerakiNetworkDeviceUplink -Option ReadOnly
+
 <#
 .Description
 Retrieves all devices in an organization
@@ -213,6 +245,8 @@ function Get-MerakiOrganizationDevices() {
 
     return $response
 }
+
+Set-Alias GMOrgDevs -Value Get-MerakiOrganizationDevices -Option ReadOnly
 
 <#
 .Description
@@ -252,6 +286,8 @@ function Get-MerakiNetworkVLANS() {
     
 }
 
+Set-Alias -Name GMNetVLANs -Value Get-MerakiNetworkVLANS -Option ReadOnly
+
 <#
 .Description
 Retrieve a specific VLAN
@@ -280,6 +316,8 @@ function Get-MerakiNetworkVLAN() {
 
 }
 
+Set-Alias -name GMNetVLAN -Value Get-MerakiNetworkVLAN -Option ReadOnly
+
 <#
 .Description
 Retrieve all switch settings in a network
@@ -301,6 +339,8 @@ function Get-MerakiDeviceSwitchSettings() {
 
     return $response
 }
+
+Set-Alias -Name GMDevSwSettings -Value Get-MerakiDeviceSwitchSettings -Option ReadOnly
 
 <#
 .Description
@@ -337,6 +377,8 @@ function Get-MerakiDeviceSwitchPorts() {
     return $responses.ToArray()
 }
 
+Set-Alias GMDevSwPorts -Value Get-MerakiDeviceSwitchPorts -Option ReadOnly
+
 function Get-MerakiApplianceVlanPorts() {
     [cmdletbinding()]
     Param(
@@ -359,6 +401,8 @@ function Get-MerakiApplianceVlanPorts() {
     }
 }
 
+Set-Alias -Name GMAppVlanPorts -value Get-MerakiApplianceVlanPorts -Option ReadOnly
+
 function Get-MerakiSSIDs() {
     [CmdletBinding()]
     Param(
@@ -378,6 +422,8 @@ function Get-MerakiSSIDs() {
     return $response
 }
 
+Set-Alias -Name GMSSIDs -Value Get-MerakiSSIDs -Option ReadOnly
+
 function Get-MerakiNetworkContentFilteringCategories() {
     [CmdletBinding()]
     Param(
@@ -396,6 +442,8 @@ function Get-MerakiNetworkContentFilteringCategories() {
 
     return $response
 }
+
+Set-Alias GMNetCFCats -Value Get-MerakiNetworkContentFilteringCategories -Option ReadOnly
 
 <#
 .Description
@@ -418,6 +466,8 @@ function Get-MerakiNetworkContentFilteringRules() {
 
     return $response    
 }
+
+Set-Alias GMNetCFRules -Value Get-MerakiNetworkContentFilteringRules -Option ReadOnly
 
 <#
 .Description
@@ -481,6 +531,8 @@ function Update-MerakiNetworkContentFiltering() {
     return $response
 }
 
+Set-Alias -Name UMNetCF -value Update-MerakiNetworkContentFiltering -Option ReadOnly
+
 <#
 .Description
 Get Organization Admins
@@ -502,6 +554,8 @@ function Get-MerakiOrganizationAdmins() {
 
     return $response
 }
+
+Set-Alias -name GMOrgAdmins -Value Get-MerakiOrganizationAdmins -Option ReadOnly
 
 <#
 .Description
@@ -570,6 +624,8 @@ function Get-MerakiOrganizationConfigurationChanges() {
     
 }
 
+Set-Alias -name GMOrgCC -Value Get-MerakiOrganizationConfigurationChanges -Option ReadOnly
+
 <#
 .Description
 Get Network Uplink Setting
@@ -591,6 +647,8 @@ function Get-MerakiNetworkUplinkSettings() {
 
     return $response
 }
+
+Set-Alias GMNetULSettings -Value Get-MerakiNetworkUplinkSettings -Option ReadOnly
 
 <#
 .Description
@@ -614,6 +672,8 @@ function Get-MerakiOrganizationConfigTemplates() {
     return $response
 }
 
+Set-Alias -Name GMOrgTemplates -value Get-MerakiOrganizationConfigTemplates -Option ReadOnly
+
 <#
 .Description
 Get Network Site-to-Site VPN Settings
@@ -636,6 +696,8 @@ function Get-MerakiNetworkSiteToSiteVPN() {
 
     return $response
 }
+
+Set-Alias -Name GMNetSSVpn -Value Get-MerakiNetworkSiteToSiteVPN -Option ReadOnly
 
 $paging = @{
     next = $null
@@ -762,6 +824,8 @@ function Get-MerakiNetworkEvents() {
             $paging.first = $startingAfter
             if ($endingBefore) {
                 $paging.last = $endingBefore
+            } else {
+                $paging.last = Get-Date
             }
             $paging.next = $response.pageEndAt
             $paging.prev = $response.pageStartAt
@@ -770,6 +834,8 @@ function Get-MerakiNetworkEvents() {
         return $response.events | Sort-Object occurredAt
     }
 }
+
+Set-Alias -Name GMNetEvents -value Get-MerakiNetworkEvents -Option ReadOnly
 
 <#
 .Description
@@ -793,6 +859,8 @@ function Get-MerakiNetworkEventTypes() {
 
     return $response
 }
+
+Set-Alias -Name GMNetET  Get-MerakiNetworkEventTypes -Option ReadOnly
 
 <#
 .Description
@@ -861,6 +929,8 @@ function Get-MerakiOrganizationThirdPartyVPNPeers() {
     return $response
 }
 
+Set-Alias -Name GMOrg3pVP -Value Get-MerakiOrganizationThirdPartyVPNPeers -Option ReadOnly
+
 <#
 .Description
 Get organization inventory
@@ -883,6 +953,8 @@ function Get-MerakiOrganizationInventory() {
     return $response
 }
 
+Set-Alias -Name GMOrgInv -Value Get-MerakiOrganizationInventory -Option ReadOnly
+
 <#
 .Description
 Get network security events
@@ -895,16 +967,45 @@ function Get-MerakiNetworkSecurityEvents() {
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
-        [string]$id
+        [string]$id,
+        [datetime]$startDate,
+        [datetime]$endDate,
+        [int]$timespan,
+        [int]$perPage
     )
 
     $Uri = "{0}/networks/{1}/securityEvents" -f $BaseURI, $id
     $Headers = Get-Headers
 
-    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $headers
+    $psBody = @{}
 
+    if ($startDate) {
+        $time = ConvertTo-UTime $startDate
+        $psBody.Add("t0", $time)
+    }
+    if ($endTime) {
+        $time = ConvertTo-UTime $endDate
+        $psBody.Add("t1", $time)
+    }
+    if ($timespan) {
+        $seconds = [timespan]::FromDays($timespan).TotalSeconds
+        $psBody.Add("timespan", $seconds)
+    }
+    if ($perPage) {
+        $psBody.add("perPage", $perPage)
+    }
+
+    $body = $psBody | ConvertTo-Json
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -body $body -Headers $headers
+    $response | ForEach-Object {
+        $eventTime = ConvertFrom-UTime $_.ts
+        $_ | Add-Member -MemberType NoteProperty -Name "eventDate" -Value $eventTime
+    }
     return $response
 }
+
+Set-Alias -Name GMNetSecEvents -Value Get-MerakiNetworkSecurityEvents -Option ReadOnly
 
 <#
 .Description
@@ -912,7 +1013,11 @@ Get organization security events
 #>
 function Get-MerakiOrganizationSecurityEvents() {
     Param(
-        [string]$OrgID
+        [string]$OrgID,
+        [datetime]$StartDate,
+        [datetime]$endDate,
+        [long]$timespan,
+        [int]$perPage
     )
 
     if (-not $OrgID) {
@@ -923,10 +1028,47 @@ function Get-MerakiOrganizationSecurityEvents() {
     $Uri = "{0}/organizations/{1}/securityEvents" -f $BaseURI, $OrgID
     $Headers = Get-Headers
 
+    if ($StartDate) {        
+        #$psBody.Add("t0", "{0:s}" -f $StartDate)
+        $time = ConvertTo-UTime $startDate
+        $param = "t0={0}" -f $time
+    }
+    if ($endDate) {        
+        $time = ConvertTo-UTime $endDate
+        if ($param) {
+            $param += "&"
+        }
+        $param += "t1={0}" -f $time
+    }
+    if ($timespan) {
+        $seconds = [timespan]::FromDays($timespan).TotalSeconds
+        if ($param) {
+            $param += "&"
+        }
+        $param += "timespan={0}" -f $seconds
+    }
+    if ($perPage) {
+        if ($param) {
+            $param += "&"
+        }
+        $param += "perPage={0}" -f $perPage
+    }
+    if ($param) {
+        $Uri += "?"
+        $Uri += $param
+    }
+
     $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
 
+    $response | ForEach-Object {
+        $eventTime = ConvertFrom-UTime $_.ts
+        $_ | Add-Member -MemberType NoteProperty -Name "eventTime" -Value $eventTime
+    }
+    
     return $response
 }
+
+Set-Alias -Name GMOrgSecEvents -Value Get-MerakiOrganizationSecurityEvents -Option ReadOnly
 
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
