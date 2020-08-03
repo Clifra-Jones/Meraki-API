@@ -7,33 +7,61 @@ expect that there are bugs.
 CHANGES
 08/03/2020
 Added Aliases for functions
+
 Name            Definition
+
 ----            ----------
+
 GMAppVlanPorts  Get-MerakiApplianceVlanPorts
+
 GMDevSwPorts    Get-MerakiDeviceSwitchPorts
+
 GMDevSwSettings Get-MerakiDeviceSwitchSettings
+
 GMNet           Get-MerakiNetwork
+
 GMNetCFCats     Get-MerakiNetworkContentFilteringCategories
+
 GMNetCFRules    Get-MerakiNetworkContentFilteringRules
+
 GMNetDev        Get-MerakiNetworkDevice
+
 GMNetDevs       Get-MerakiNetworkDevices
+
 GMNetDevUplink  Get-MerakiNetworkDeviceUplink
+
 GMNetET         Get-MerakiNetworkEventTypes
+
 GMNetEvents     Get-MerakiNetworkEvents
+
 GMNets          Get-MerakiNetworks
+
 GMNetSecEvents  Get-MerakiNetworkSecurityEvents
+
 GMNetSSVpn      Get-MerakiNetworkSiteToSiteVPN
+
 GMNetULSettings Get-MerakiNetworkUplinkSettings
+
 GMNetVLAN       Get-MerakiNetworkVLAN
+
 GMNetVLANs      Get-MerakiNetworkVLANS
+
 GMOrg           Get-MerakiOrganizations
+
 GMOrg3pVP       Get-MerakiOrganizationThirdPartyVPNPeers
+
 GMOrgAdmins     Get-MerakiOrganizationAdmins
+
 GMOrgDevs       Get-MerakiOrganizationDevices
+
 GMOrgInv        Get-MerakiOrganizationInventory
+
 GMOrgSecEvents  Get-MerakiOrganizationSecurityEvents
+
 GMOrgTemplates  Get-MerakiOrganizationConfigTemplates
+
 GMSSIDs         Get-MerakiSSIDs
+
 UMNetCF         Update-MerakiNetworkContentFiltering
 
 7/30/2020
