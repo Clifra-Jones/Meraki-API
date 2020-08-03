@@ -1,10 +1,10 @@
 # Meraki-API
-PowerShell Module to work with the MerakiAPI.
+## PowerShell Module to work with the MerakiAPI.
 
-NOTE: This is a work in progress. This module only exposes a very small subset of the Meraki API REST functions. There may be bugs and you should
+**NOTE**: This is a work in progress. This module only exposes a very small subset of the Meraki API REST functions. There may be bugs and you should
 expect that there are bugs.
 
-CHANGES
+## CHANGES
 
 08/03/2020
 
@@ -88,32 +88,33 @@ Get-MerakiNetworkSecurityEvents
 
 Get-MerakiOrganizationSecurityEvents
 
-INSTALLATION
+## INSTALLATION
 
-NOTE: This module will eventually be published to the Powershell Gallery once significant testing has been done.
+**NOTE**: This module will eventually be published to the Powershell Gallery once significant testing has been done.
 
-Windows
+## Windows
 
 Windows Powershell <= 5.1
-NOTE: Certain functions do not currently work with Powershell 5.1. I will research of I can fix that but at htos time if yu want full functionality you should run 6+.
+
+NOTE: Certain functions do not currently work with Powershell 5.1. I will research of I can fix that but at thoi time if you want full functionality you should run 6+.
 
 You should install this module in the User scope unless it is being installed on a shared system.
 
-User Scope Install
+## User Scope Install
 
-Command Prompt
+### Command Prompt
 
 >cd %USERPROFILE%\Documents\WindowsPowershell\Modules
 
 >git clone {path}
 
-Powershell
+### Powershell
 
 >cd $env:USERPROFILE\Documents\WindowsPowerShell\Modules
 
 >git clone {path}
 
-System Scope Install
+### System Scope Install
 
 Command Prompt
 
@@ -123,7 +124,7 @@ Open a elevated command prompt
 
 >git clone {path}
 
-Powershell
+### Powershell
 
 Open an elevated Powershell session
 
@@ -131,25 +132,25 @@ Open an elevated Powershell session
 
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-Powershell Core 6 or 7
+## Powershell Core 6 or 7
 
 User Scope Install
 
-Command Prompt
+### Command Prompt
 
 >cd %UserProfile%\Documents\PowerShell\Modules
 
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-Powershell
+### Powershell
 
 >cd $env:USERPROFILE\Documents\PowerShell\Modules
 
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-System Scope Install
+## System Scope Install
 
-Command Prompt
+### Command Prompt
 
 Open an elevated command prompt
 
@@ -157,25 +158,25 @@ Open an elevated command prompt
 
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-Linux/Mac
+# Linux/Mac
 
-User Scope Install
+### User Scope Install
 
 >cd ~/.local/share/powershell/Modules
 
 >git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-System Scope Install
+### System Scope Install
 
 >cd /usr/local/share/powershell/Modules
 
 >sudo git clone https://github.com/Clifra-Jones/Meraki-API.git
 
-ZIP FILE INSTALLATION
+## ZIP FILE INSTALLATION
 
 Same as above, just make a directory called Meraki-API in one of the above folders and unzip the file into that directory.
 
-USAGE
+# USAGE
 
 API Access must be enabled on your Meraki Dashboard.
 
@@ -197,4 +198,4 @@ You must configure your profile to use the API module. To do this use the Set-Me
 
 This will create the file .meraki/config.json in your user profile. 
 
-See Wiki for documentation.
+## See Wiki for documentation.
