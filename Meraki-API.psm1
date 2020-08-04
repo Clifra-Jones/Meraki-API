@@ -263,7 +263,7 @@ function Get-MerakiNetworkVLANS() {
         [switch]$NoProgress
     )
         $Headers = Get-Headers       
-        $responses = New-Object System.Collections.Generic.List[psobject]     
+        $VLANs = New-Object System.Collections.Generic.List[psobject]     
         $i = 1
         $count = $input.Count
         $input | ForEach-Object {
@@ -273,8 +273,10 @@ function Get-MerakiNetworkVLANS() {
             }
             try {
                 $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers 
-                if ($response.id) {
-                    $responses.add($response)   
+                if ($response.length) {                    
+                    $response | ForEach-Object {
+                        $VLANs.add($_)
+                    }
                 }
             } catch {
                 #$_.Exception
@@ -282,7 +284,7 @@ function Get-MerakiNetworkVLANS() {
             $i += 1
         }
         Write-Progress -Completed -Activity "Get VLANS for:"
-        return $responses.toArray()
+        return $VLANs.toArray()
     
 }
 
