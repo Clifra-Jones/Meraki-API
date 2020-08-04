@@ -10,6 +10,18 @@ expect that there are bugs.
 
 Fixed a problem with Get-MerakiNetworkVLANs. When pipelining multiple networks, networks with multiple VLANs were returning these VLANs as array properties within the parent array. This caused filtering by any property of the VLAN to fail. Reconfigured the code to extract the VLAN object and add them to a Single demention array. 
 
+Added the following parameters to the Get-MerakiNetworkSecurityEvents and Get-MerakiOrganizationSecurityEvents functions.
+
+StartTime: Beginning date to pull events
+
+EndTime: Ending date to pull events
+
+TimeSpan: Days prior to today to pull event (max 365)
+
+perPage: Number of events to pull. Min 3, MAX 1000, default 50
+
+Currently events are retained for 30 days only. So paging is not enabled. To pull the entire 30 days it is best to use the perPage parameter with the max 1000 events.
+
 08/03/2020
 
 Added Aliases for functions
