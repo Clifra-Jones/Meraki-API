@@ -8,7 +8,7 @@ expect that there are bugs.
 
 08/04/2020
 
-Fixed a problem with Get-MerakiNetworkVLANs. When pipelining multiple networks, networks with multiple VLANs were returning these VLANs as Arrays within the parent array. This caused filtering by any property of the VLAN to fail. Reconfigured the code to extract the VLAN object and add them to a Sibgle demention array. 
+Fixed a problem with Get-MerakiNetworkVLANs. When pipelining multiple networks, networks with multiple VLANs were returning these VLANs as array properties within the parent array. This caused filtering by any property of the VLAN to fail. Reconfigured the code to extract the VLAN object and add them to a Single demention array. 
 
 08/03/2020
 
