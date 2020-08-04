@@ -281,7 +281,7 @@ function Get-MerakiNetworkVLANS() {
             }
             $i += 1
         }
-        Write-Progress -Completed
+        Write-Progress -Completed -Activity "Get VLANS for:"
         return $responses.toArray()
     
 }
