@@ -76,7 +76,7 @@ FunctionsToExport = @("Get-MerakiNetworks", "Get-MerakiNetworks", "Get-MerakiNet
                         "Get-MerakiOrganizationAdmins", "Get-MerakiOrganizationConfigurationChanges","Get-MerakiNetworkUplinkSettings", `
                         "Get-MerakiOrganizationConfigTemplates","Get-MerakiNetworkSiteToSiteVPN","Get-MerakiNetworkDeviceUplink","Get-MerakiApplianceVlanPorts", `
                         "Get-MerakiNetworkEvents", "Get-MerakiNetworkEventTypes", "Get-MerakiNetworkContentFilteringCategories", "Get-MerakiOrganizationThirdPartyVPNPeers", `
-                        "Get-MerakiOrganizationInventory", "Get-MerakiNetworkSecurityEvents", "Get-MerakiOrganizationSecurityEvents")
+                        "Get-MerakiOrganizationInventory", "Get-MerakiNetworkSecurityEvents", "Get-MerakiOrganizationSecurityEvents","Get-MerakiNetworkApplianceStaticRoutes")
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'
@@ -88,7 +88,7 @@ VariablesToExport = 'CategoryListSize'
 AliasesToExport = @('GMOrg','GMNets','GMNet','GMNetDevs','GMNetDev','GMNetDevUplink','GMOrgDevs','GMNetVLANs', `
                     'GMNetVLAN','GMDevSwSettings','GMDevSwPorts','GMAppVlanPorts','GMSSIDs','GMNetCFCats', `
                     'GMNetCFRules','UMNetCF','GMOrgAdmins','GMNetULSettings','GMOrgTemplates','GMNetSSVpn', `
-                    'GMNetEvents','GMNetET','GMOrg3pVP','GMOrgInv','GMNetSecEvents','GMOrgSecEvents')
+                    'GMNetEvents','GMNetET','GMOrg3pVP','GMOrgInv','GMNetSecEvents','GMOrgSecEvents','GMNetAppRoutes')
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

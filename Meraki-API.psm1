@@ -1072,6 +1072,27 @@ function Get-MerakiOrganizationSecurityEvents() {
 
 Set-Alias -Name GMOrgSecEvents -Value Get-MerakiOrganizationSecurityEvents -Option ReadOnly
 
+function Get-MerakiNetworkApplianceStaticRoutes() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    $uri = "{0}/networks/{1}/staticRoutes" -f $BaseURI, $id
+    $Headers = Get-Headers
+
+    $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
+
+    return $response
+}
+
+Set-Alias -Name GMNetAppRoutes -Value Get-MerakiNetworkApplianceStaticRoutes -Option ReadOnly
+
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `
                                     Get-MerakiOrganizationDevices, Get-MerakiNetworkVLAN, Get-MerakiNetworkVLANS, `
