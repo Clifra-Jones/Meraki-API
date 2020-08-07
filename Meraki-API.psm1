@@ -40,7 +40,8 @@ function Set-MerakiAPI() {
         APIKey = $APIKey
         OrgID = $OrgID
     }
-    $configPath = "{0}/.meraki" -f $env:userProfile
+    
+    $configPath = "{0}/.meraki" -f $HOME
 
     if (-not (Test-Path -Path $configPath)) {
         New-Item -Path $configPath -ItemType:Directory
