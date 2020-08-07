@@ -50,7 +50,7 @@ function Set-MerakiAPI() {
     $objConfig | ConvertTo-Json | Out-File -FilePath "$configPath/config.json"
 }
 function Read-Config () {
-    $ConfigPath = "$($env:USERPROFILE)/.meraki/config.json"
+    $ConfigPath = "$home/.meraki/config.json"
     $config = Get-Content -Raw -Path $ConfigPath | ConvertFrom-Json
     return $config
 }
