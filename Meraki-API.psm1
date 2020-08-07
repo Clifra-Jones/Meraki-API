@@ -43,7 +43,7 @@ function Set-MerakiAPI() {
     $configPath = "{0}/.meraki" -f $env:userProfile
 
     if (-not (Test-Path -Path $configPath)) {
-        mkdir -Path $configPath
+        New-Item -Path $configPath -ItemType:Directory
     }
 
     $objConfig | ConvertTo-Json | Out-File -FilePath "$configPath/config.json"

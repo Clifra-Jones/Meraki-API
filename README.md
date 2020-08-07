@@ -6,8 +6,13 @@ expect that there are bugs.
 
 ## CHANGES
 
+08/07/2020
+
+Fixed an issue with Set-MerakiAPI that cause an error when trying to create the .Meraki config folder.
+
 08/05/2020
-Addee function Get-MerakiNetwork ApplianceStaticRoutes.
+
+Added function Get-MerakiNetwork ApplianceStaticRoutes.
 
 08/04/2020
 
