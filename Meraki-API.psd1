@@ -71,12 +71,13 @@ Copyright = '(c) Cliff Williams. All rights reserved.'
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 #FunctionsToExport = "*"
 FunctionsToExport = @("Get-MerakiNetworks", "Get-MerakiNetworks", "Get-MerakiNetworkDevices", "Get-MerakiNetworkDevice", "Get-MerakiOrganizationDevices", `
-                        "Get-MerakiNetworkVLAN", "Get-MerakiNetworkVLANS", "Get-MerakiDeviceSwitchSettings", "Get-MerakiDeviceSwitchPorts", "Get-MerakiOrganizations", `
+                        "Get-MerakiNetworkVLAN", "Get-MerakiNetworkVLANS", "Get-MerakiNetworkSwitchSettings", "Get-MerakiDeviceSwitchPorts", "Get-MerakiOrganizations", `
                         "Get-MerakiNetworkContentFilteringRules", "Update-MerakiNetworkContentFiltering","Set-MerakiAPI", "Get-MerakiNetwork","Get-MerakiSSIDs", `
                         "Get-MerakiOrganizationAdmins", "Get-MerakiOrganizationConfigurationChanges","Get-MerakiNetworkUplinkSettings", `
                         "Get-MerakiOrganizationConfigTemplates","Get-MerakiNetworkSiteToSiteVPN","Get-MerakiNetworkDeviceUplink","Get-MerakiApplianceVlanPorts", `
                         "Get-MerakiNetworkEvents", "Get-MerakiNetworkEventTypes", "Get-MerakiNetworkContentFilteringCategories", "Get-MerakiOrganizationThirdPartyVPNPeers", `
-                        "Get-MerakiOrganizationInventory", "Get-MerakiNetworkSecurityEvents", "Get-MerakiOrganizationSecurityEvents","Get-MerakiNetworkApplianceStaticRoutes")
+                        "Get-MerakiOrganizationInventory", "Get-MerakiNetworkSecurityEvents", "Get-MerakiOrganizationSecurityEvents","Get-MerakiNetworkApplianceStaticRoutes", `
+                        "Get-MerakiNetworkClients","Get-MerakiNetworkClient", "Get-MerakiNetworkClientEvents")
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'
@@ -86,9 +87,9 @@ VariablesToExport = 'CategoryListSize'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = @('GMOrg','GMNets','GMNet','GMNetDevs','GMNetDev','GMNetDevUplink','GMOrgDevs','GMNetVLANs', `
-                    'GMNetVLAN','GMDevSwSettings','GMDevSwPorts','GMAppVlanPorts','GMSSIDs','GMNetCFCats', `
+                    'GMNetVLAN','GMNetSwSettings','GMDevSwPorts','GMAppVlanPorts','GMSSIDs','GMNetCFCats', `
                     'GMNetCFRules','UMNetCF','GMOrgAdmins','GMNetULSettings','GMOrgTemplates','GMNetSSVpn', `
-                    'GMNetEvents','GMNetET','GMOrg3pVP','GMOrgInv','GMNetSecEvents','GMOrgSecEvents','GMNetAppRoutes')
+                    'GMNetEvents','GMNetET','GMOrg3pVP','GMOrgInv','GMNetSecEvents','GMOrgSecEvents','GMNetAppRoutes', 'GMNetClients','GMNetClient')
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

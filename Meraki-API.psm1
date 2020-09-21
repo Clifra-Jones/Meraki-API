@@ -184,10 +184,10 @@ function Get-MerakiNetworkDevice() {
         [string]$NetworkID,
         [Parameter(
             Mandatory = $true)]
-        [string]$DeviceID
+        [string]$Serial
     )
 
-    $Uri = "{0}/networks/{1}/devices/{2}" -f $BaseURI, $NetworkID, $DeviceID
+    $Uri = "{0}/networks/{1}/devices/{2}" -f $BaseURI, $NetworkID, $Serial
     $Headers = Get-Headers
 
     $response = Invoke-RestMethod -Method GET -Uri $Uri -Headers $Headers
@@ -324,7 +324,7 @@ Set-Alias -name GMNetVLAN -Value Get-MerakiNetworkVLAN -Option ReadOnly
 .Description
 Retrieve all switch settings in a network
 #>
-function Get-MerakiDeviceSwitchSettings() {
+function Get-MerakiNetworkSwitchSettings() {
     [cmdletbinding()]
     Param(
         [Parameter(
@@ -342,7 +342,7 @@ function Get-MerakiDeviceSwitchSettings() {
     return $response
 }
 
-Set-Alias -Name GMDevSwSettings -Value Get-MerakiDeviceSwitchSettings -Option ReadOnly
+Set-Alias -Name GMNetSwSettings -Value Get-MerakiDeviceSwitchSettings -Option ReadOnly
 
 <#
 .Description
@@ -1092,6 +1092,160 @@ function Get-MerakiNetworkApplianceStaticRoutes() {
 }
 
 Set-Alias -Name GMNetAppRoutes -Value Get-MerakiNetworkApplianceStaticRoutes -Option ReadOnly
+
+function Get-MerakiNetworkClients() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id,
+        [DateTime]$StartDate,
+        [int]$timespan,
+        [int]$perPage
+    )
+
+    
+    $Headers = Get-Headers
+    $clients = new-object System.Collections.Generic.List[PSObject]
+    
+    $input | foreach-Object {
+        $Uri = "{0}/networks/{1}/clients" -f $BaseURI, $_.id
+
+        $psBody = @{}
+        
+        if ($StartDate) {
+            $time = ConvertTo-UTime $StartDate
+            $psBody.Add("t0", $time)
+        }
+        if ($timespan) {
+            $seconds = [TimeSpan]::FromDays($timespan)
+            $psBody.Add("timespan", $seconds)
+        }
+        if ($perPage) {
+            $psBody.Add("perPage", $perPage)
+        }
+        
+        $body = $psBody | ConvertTo-Json
+
+        $networkID = $_.id
+        $networkName = $_.Name
+
+
+        $response = Invoke-RestMethod -Method GET -Uri $Uri -Body $body -Headers $Headers
+        $response | foreach-Object {
+            $_ | Add-Member -MemberType NoteProperty -Name "networkID" -Value $networkId
+            $_ | Add-Member -MemberType NoteProperty -Name "NetworkName" -Value $networkName
+            $clients.Add($_)
+        }
+    }
+    return $clients.ToArray()
+}
+
+Set-Alias -Name GMNetClients -Value Get-MerakiNetworkClients -Option Readonly
+
+function Get-MerakiNetworkClient() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$networkId,
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$id
+    )
+
+    Begin {
+        $Headers = Get-Headers
+    }
+
+    Process {
+        $Uri = "{0}/networks/{1}/clients/{2}" -f $BaseURI, $NetworkId, $id
+        $NetworkName = $input.networkName
+
+        $response = Invoke-RestMethod -Method Get -Uri $Uri -Headers $headers
+        $response | Add-Member -MemberType NoteProperty -Name "NetworkID" -Value $NetworkId
+        $response | Add-Member -MemberType NoteProperty -Name "NetworkName" -Value $NetworkName
+        $response.firstSeen = ConvertFrom-UTime $response.firstSeen
+        $response.lastSeen = ConvertFrom-UTime $response.lastSeen
+
+        return $response
+    }
+}
+
+Set-Alias -Name GMNetClient -Value Get-MerakiNetworkClient -Option ReadOnly
+
+function Get-MerakiNetworkClientEvents() {
+    [CmdletBinding(
+        DefaultParameterSetName = 'StartDate'
+    )]
+    Param(
+        [Parameter(           
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [string]$networkId,
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]        
+        [string]$id,
+        [Parameter(
+            ParameterSetName = 'StartDate'
+        )]
+        [DateTime]$StartDate,
+        [Parameter(
+            ParameterSetName = 'EndDate'
+        )]
+        [DateTime]$EndDate,
+        [int]$perPage
+    )
+
+    Begin {
+        $Headers = Get-Headers
+        $psBody = @{}
+
+        if ($startDate) {
+            $Utime = ConvertTo-Utime $StartDate
+            $psBody.Add("startingAfter", $Utime)
+        }
+        if ($EndDate) {
+            $Utime = ConvertTo-UTime $EndDate
+            $psBody.Add("endingBefore", $Utime)
+        }
+        if ($perpage) {
+            $psBody.Add("perPage", $perPage)
+        }
+        $body = $psBody | ConvertTo-Json
+    }
+    
+
+    Process {
+        $Uri = "{0}/networks/{1}/clients/{2}/events" -f $BaseURI, $networkId, $id
+        
+        $networkName = $input.networkName
+        $ClientDescription = $input.description
+
+        $response = Invoke-RestMethod -Method GET -Uri $Uri -Body $body -Headers $Headers
+        $response | foreach-Object {
+            $_ | Add-Member -MemberType NoteProperty -Name "networkName" -Value $networkName
+            $_ | Add-Member -MemberType NoteProperty -Name "clientDescription" -Value $ClientDescription
+            $_.occurredAt = ConvertFrom-UTime $_.occurredAt
+        }
+        return $response
+    }
+}
+
 
 <# Export-ModuleMember    -Function    Get-MerakiNetworks, Get-MerakiNetworks, `
                                     Get-MerakiNetworkDevices, Get-MerakiNetworkDevice, `

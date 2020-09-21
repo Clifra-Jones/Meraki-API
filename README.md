@@ -1,6 +1,11 @@
 # Meraki-API
 ## PowerShell Module to work with the MerakiAPI.
 
+**ATTENTION**
+There is a new module that uses the Version 1 of the Meraki API. This is a newer release by Meraki that adds some additional functionality not availabnle in the Version 0 API used by this module.
+
+The new version 1 API has it's own module. The repository is located here: https://github.com/Clifra-Jones/Meraki-API-V1
+
 **NOTE**: This is a work in progress. This module only exposes a very small subset of the Meraki API REST functions. There may be bugs and you should
 expect that there are bugs.
 
