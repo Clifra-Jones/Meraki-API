@@ -40,16 +40,17 @@ function Set-MerakiAPI() {
         APIKey = $APIKey
         OrgID = $OrgID
     }
-    $configPath = "{0}/.meraki" -f $env:userProfile
+    
+    $configPath = "{0}/.meraki" -f $HOME
 
     if (-not (Test-Path -Path $configPath)) {
-        mkdir -Path $configPath
+        New-Item -Path $configPath -ItemType:Directory
     }
 
     $objConfig | ConvertTo-Json | Out-File -FilePath "$configPath/config.json"
 }
 function Read-Config () {
-    $ConfigPath = "$($env:USERPROFILE)/.meraki/config.json"
+    $ConfigPath = "$home/.meraki/config.json"
     $config = Get-Content -Raw -Path $ConfigPath | ConvertFrom-Json
     return $config
 }
